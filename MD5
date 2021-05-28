@@ -1,0 +1,10 @@
+cd7a391a8b88260382c1eee696f0f5cb *DESCRIPTION
+a19f793878a368269243ed2052bb2f67 *NAMESPACE
+4bb9c3b3c13883e16f0c8714b0198429 *R/RweaveExtra.R
+1270054163f4fb333f422d1089adecc4 *build/partial.rdb
+766c527b387da6657c4c153b3faf080a *inst/examples/auto/example-extra.el
+f87ce4d291eef43c3423aa95e0fb60c3 *inst/examples/example-extra.Rnw
+a59c8ea242aadfc41fe51a7c2860d95d *man/RtangleExtra.Rd
+904c62c34753ff1bd6073ebcd070b5bc *man/RweaveExtra-package.Rd
+7266e375bc07d0b44253636afeab43de *man/RweaveExtraLatex.Rd
+416d55e75bc34b0ab50425a561046b8a *man/RweaveExtraUtils.Rd

@@ -1,0 +1,64 @@
+%%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
+%%%
+%%% Copyright (C) 2021 Vincent Goulet
+%%% License: GPL 2 or later
+
+\documentclass{article}
+  \usepackage{Sweave}
+  %\SweaveUTF8
+
+  \title{RweaveExtra weaving and tangling examples}
+  \author{Vincent Goulet}
+
+  \newcommand{\code}[1]{\texttt{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+
+\begin{document}
+
+The purpose of this document is not to demonstrate usage of Sweave,
+but rather only of the additional options provided by the
+\textbf{RweaveExtra} package.
+
+The following code chunk is processed normally by Sweave as well as by
+Stangle. Its content must be parsable by R.
+<<echo=TRUE>>=
+1:10
+@
+
+The next chunk contains a deliberate error --- say for didactic
+purposes. We can avoid an error with Sweave by using the option
+\code{eval=FALSE}, but then the chunk is commented out in the
+tangled script.
+<<echo=TRUE, eval=FALSE>>=
+2 + does.not.exist
+@
+
+With option \code{ignore.on.weave=TRUE} provided by the
+\code{RweaveExtraLatex} driver, the chunk is not parsed nor
+evaluated by Sweave. Therefore, we can even include code not parsable
+by R in the chunk. However, the code is processed as usual by Stangle,
+that is, without being commented out.
+<<echo=TRUE, ignore.on.weave=TRUE>>=
+2 a
+@
+
+This is also useful to keep, in a single source filem, R code as well
+as with code in another programming language. The former must be
+evaluated, but not the latter.
+<<hello, echo=FALSE, ignore.on.weave=TRUE>>=
+#!/bin/sh
+
+echo "Hello, World!"
+
+exit 0
+@
+
+Finally, we have a chunk that is processed normally by Sweave, but
+that is ignored by Stangle. At the time of writing I don't have a use
+case for this option, but I included it in the package nevertheless
+for symmetry.
+<<echo=TRUE, ignore.on.tangle=TRUE>>=
+rnorm(10)
+@
+
+\end{document}
