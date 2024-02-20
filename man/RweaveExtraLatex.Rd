@@ -1,6 +1,6 @@
 %%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
 %%%
-%%% Copyright (C) 2021 Vincent Goulet
+%%% Copyright (C) 2021-2024 Vincent Goulet
 %%% License: GPL 2 or later
 
 \name{RweaveExtraLatex}

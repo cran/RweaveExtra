@@ -1,6 +1,6 @@
 %%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
 %%%
-%%% Copyright (C) 2021 Vincent Goulet
+%%% Copyright (C) 2021-2024 Vincent Goulet
 %%% License: GPL 2 or later
 
 \documentclass{article}
@@ -42,10 +42,10 @@ that is, without being commented out.
 2 a
 @
 
-This is also useful to keep, in a single source filem, R code as well
-as with code in another programming language. The former must be
-evaluated, but not the latter.
-<<hello, echo=FALSE, ignore.on.weave=TRUE>>=
+Paired with option \code{extension}, this is also useful to keep, in a
+single source file, R code as well as code in another programming
+language. The former must be evaluated, but not the latter.
+<<hello, extension=sh, prefix=FALSE, ignore.on.weave=TRUE>>=
 #!/bin/sh
 
 echo "Hello, World!"
@@ -54,9 +54,9 @@ exit 0
 @
 
 Finally, we have a chunk that is processed normally by Sweave, but
-that is ignored by Stangle. At the time of writing I don't have a use
-case for this option, but I included it in the package nevertheless
-for symmetry.
+that is ignored by Stangle. This is convenient with \code{split =
+  TRUE} to avoid littering the output directory with unimportant
+scripts.
 <<echo=TRUE, ignore.on.tangle=TRUE>>=
 rnorm(10)
 @

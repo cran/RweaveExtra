@@ -1,12 +1,16 @@
 ### RweaveExtra: Sweave drivers with extra tricks up their sleeve
 ###
-### Copyright (C) 2021 Vincent Goulet
+### Copyright (C) 2021-2024 Vincent Goulet, 1995-2016 The R Core Team
 ### License: GPL 2 or later
 ###
 ### Definition of the drivers.
 ###
-### This is all heavily based on the Sweave sources in package utils
-### by Friedrich Leisch and R-core.
+### Many of the functions therein just call the standard Sweave
+### functions from package utils by Friedrich Leisch and R-core,
+### before or after some minor processing.
+###
+### One exception is 'RtangleExtraRuncode' that is a modified version
+### of 'RtangleRuncode'.
 
 RweaveExtraLatex <- function()
 {
@@ -22,7 +26,7 @@ RweaveExtraLatexSetup <-
              stylepath, ignore.on.weave = FALSE, ignore = FALSE, ...)
 {
     res <- RweaveLatexSetup(file, syntax, output = output, quiet = quiet,
-                            debug = debug, stylepath = stylepath)
+                            debug = debug, stylepath = stylepath, ...)
     res$options[["ignore.on.weave"]] <- ignore.on.weave
     res$options[["ignore"]] <- ignore
 
@@ -51,23 +55,96 @@ RtangleExtra <- function()
 RtangleExtraSetup <-
     function(file, syntax, output = NULL, annotate = TRUE, split = FALSE,
              quiet = FALSE, drop.evalFALSE = FALSE, ignore.on.tangle = FALSE,
-             ignore = FALSE, ...)
+             ignore = FALSE, extension = NULL, ...)
 {
     res <- RtangleSetup(file, syntax, output = output, annotate = annotate,
                         split = split, quiet = quiet,
-                        drop.evalFALSE = drop.evalFALSE)
+                        drop.evalFALSE = drop.evalFALSE, ...)
     res$options[["ignore.on.tangle"]] <- ignore.on.tangle
     res$options[["ignore"]] <- ignore
+    res$options[["extension"]] <- extension
 
     ## to be on the safe side: see if defaults pass the check
     res$options <- RweaveLatexOptions(res$options)
     res
 }
 
+## Copy of utils::.SweaveValidFilenameRegexp
+.RweaveExtraValidFilenameRegexp <- "^[[:alnum:]/#+_-]+$"
+
+## Modified version of utils::RtangleRuncode. My changes are indicated
+## by 'VG' in comments. The other comments are from SweaveDrivers.R in
+## the sources of the package utils.
 RtangleExtraRuncode <- function(object, chunk, options)
 {
-    if (options$ignore || options$ignore.on.tangle)
+    ## VG: additional conditions to skip processing and return the
+    ## object.
+    if (options$ignore || options$ignore.on.tangle ||
+        !(options$engine %in% c("R", "S")))
         return(object)
 
-    RtangleRuncode(object, chunk, options)
+    chunkprefix <- RweaveChunkPrefix(options)
+
+    if (options$split)
+    {
+        if (!grepl(.RweaveExtraValidFilenameRegexp, chunkprefix))
+            warning("file stem ", sQuote(chunkprefix), " is not portable",
+                    call. = FALSE, domain = NA)
+        ## VG: use the engine as default extension
+        if (is.null(options$extension) || isTRUE(options$extension))
+            options$extension <- options$engine
+        ## VG: use an extension for the filename unless the option
+        ## 'extension=FALSE' is used in the chunk
+        ext <- if (!isFALSE(options$extension)) paste0(".", options$extension)
+        outfile <- paste0(chunkprefix, ext)
+        if (!object$quiet) cat(options$chunknr, ":", outfile,"\n")
+        ## [x][[1L]] avoids partial matching of x
+        ## VG: use 'outfile' instead of 'chunkout' for the name of the
+        ## list element to avoid clashes in the case where chunks
+        ## share the same label, but with different extensions.
+        chunkout <- object$chunkout[outfile][[1L]]
+        if (is.null(chunkout))
+        {
+            chunkout <- file(outfile, "w")
+            if (!is.null(options$label))
+                object$chunkout[[outfile]] <- chunkout # VG: same as above
+        }
+    }
+    else
+        chunkout <- object$output
+
+    showOut <- options$eval || !object$drop.evalFALSE
+    if(showOut)
+    {
+        annotate <- object$annotate
+        if (is.logical(annotate) && annotate) {
+            cat("###################################################\n",
+                "### code chunk number ", options$chunknr, ": ",
+                if(!is.null(ol <- options$label)) ol else .RtangleCodeLabel(chunk),
+                if(!options$eval) " (eval = FALSE)", "\n",
+                "###################################################\n",
+                file = chunkout, sep = "")
+        }
+        else if (is.function(annotate))
+            annotate(options, chunk = chunk, output = chunkout)
+    }
+
+    ## The next returns a character vector of the logical options
+    ## which are true and have hooks set.
+    hooks <- SweaveHooks(options, run = FALSE)
+    for (k in hooks)
+        cat("getOption(\"SweaveHooks\")[[\"", k, "\"]]()\n",
+            file = chunkout, sep = "")
+
+    if(showOut)
+    {
+        if (!options$show.line.nos) # drop "#line ...." lines
+            chunk <- grep("^#line ", chunk, value = TRUE, invert = TRUE)
+        if (!options$eval)
+            chunk <- paste("##", chunk)
+        cat(chunk, "\n", file = chunkout, sep = "\n")
+    }
+    if (is.null(options$label) && options$split)
+        close(chunkout)
+    object
 }

@@ -1,15 +1,16 @@
 %%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
 %%%
-%%% Copyright (C) 2021 Vincent Goulet
+%%% Copyright (C) 2021-2024 Vincent Goulet
 %%% License: GPL 2 or later
 
-\name{RweaveLatexExtraUtils}
+\name{RweaveExtraLatexUtils}
 \alias{RweaveExtraLatexRuncode}
 \alias{RtangleExtraRuncode}
 \title{RweaveExtra Driver Utilities}
 \description{
-  These functions are considered internal and hence not documented. They
-  mostly call \code{makeRweaveLatexCodeRunner} and \code{RtangleRuncode}
+  These functions are considered internal and hence not documented. The
+  first mostly calls \code{makeRweaveLatexCodeRunner}, whereas the
+  second is a slightly modified version of \code{RtangleRuncode}, both
   from package \pkg{utils}.
 }
 \usage{
