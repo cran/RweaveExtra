@@ -17,7 +17,7 @@ RtangleExtra()
 RtangleExtraSetup(file, syntax, output = NULL, annotate = TRUE,
                   split = FALSE, quiet = FALSE, drop.evalFALSE = FALSE,
                   ignore.on.tangle = FALSE, ignore = FALSE,
-                  extension = NULL, ...)
+                  extension = TRUE, chunk.sep = "\n\n", ...)
 }
 \arguments{
   \item{file}{Name of Sweave source file. See the description of the
@@ -36,10 +36,14 @@ RtangleExtraSetup(file, syntax, output = NULL, annotate = TRUE,
   \item{ignore}{An alternative way to set both \code{ignore.on.weave}
     of \code{\link{RweaveExtraLatex}} and \code{ignore.on.tangle}.}
   \item{extension}{Extension to use for the file name, without the
-    leading dot, when splitting is selected. If \code{NULL}, the default
+    leading dot, when splitting is selected. If \code{TRUE}, the default
     extension of \code{\link[utils]{Rtangle}} is used (the
     \sQuote{engine}, usually \file{R}). If \code{FALSE}, no extension
     is added to the file name.}
+  \item{chunk.sep}{Text to use as separator between code chunks. The
+    default value reproduces the output of the standard
+    \code{\link[utils]{Rtangle}} driver. If \code{FALSE}, no separator
+    is added between chunks.}
   \item{\dots}{See \code{\link[utils]{RweaveLatex}}.}
 }
 \details{
@@ -51,6 +55,14 @@ RtangleExtraSetup(file, syntax, output = NULL, annotate = TRUE,
   The argument \code{extension} is specially useful with
   \code{ignore.on.weave = TRUE} of \code{\link{RweaveExtraLatex}} to
   include code or text that the engine would not be able to parse.
+
+  The argument \code{chunk.sep} offers control over the chunk separator
+  that the standard \code{\link[utils]{Rtangle}} driver does not. The
+  chunk separator is added \emph{before} all chunks, except the first
+  one. Therefore, no chunk separator follows the last chunk. No newline
+  (aka \sQuote{line feed}) is added to the value of the argument. Using
+  control characters (e.g. \samp{\\n}) in a code chunk option is not
+  supported.  
 }
 \value{
   Named \code{list} of five functions; see \code{\link[utils]{Sweave}}
@@ -68,7 +80,7 @@ RtangleExtraSetup(file, syntax, output = NULL, annotate = TRUE,
 testfile <- system.file("examples", "example-extra.Rnw",
                         package = "RweaveExtra")
 \dontshow{
-oldwd <- setwd(tempdir()) # so we will write only to a temp directory
+oldwd <- setwd(tempdir()) # write only to a temp directory
 }
 
 ## Check the contents of the file
@@ -80,15 +92,24 @@ Stangle(testfile, driver = RtangleExtra())
 ## View tangled file
 if (interactive()) file.show("example-extra.R")
 
+## Reduce to spacing between code chunks to a single
+## blank line
+Stangle(testfile, driver = RtangleExtra(), chunk.sep = "\n")
+if (interactive()) file.show("example-extra.R")
+
+## The effect of 'chunk.sep=FALSE' in the second chunk
+## is more interesting without the annotations
+Stangle(testfile, driver = RtangleExtra(),
+        annotate = FALSE, chunk.sep = "\n")
+if (interactive()) file.show("example-extra.R")
+
 ## Use 'extension=sh' with 'ignore.on.weave=TRUE', and
 ## the options 'split=TRUE' and 'prefix=FALSE' of Stangle
 ## to extract the shell script to a file 'hello.sh'
 Stangle(testfile, driver = RtangleExtra(),
         split = TRUE, annotate = FALSE)
-if(interactive()) file.show("hello.sh")
-
-\dontshow{
-if(!interactive()) unlink(c("example-extra*", "hello.sh"))
+if (interactive()) file.show("hello.sh")
+\dontshow{if (!interactive()) unlink(c("example-extra*", "hello.sh"))
 setwd(oldwd)
 }
 }

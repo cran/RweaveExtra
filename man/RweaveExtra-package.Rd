@@ -24,9 +24,11 @@
   chunks on weaving, tangling, or both. Chunks ignored on weaving are
   not parsed and are written out verbatim on tangling. Chunks ignored on
   tangling are processed as usual on weaving, but completely left out of
-  the tangled scripts. The driver \code{\link{RtangleExtra}} also
-  provides the option \code{extension} to specify the extension of the
-  file name (or remove it entirely) when splitting is selected.
+  the tangled scripts. The driver \code{\link{RtangleExtra}} furthermore
+  provides two additional options: \code{chunk.sep} to control the
+  separation (or remove it entirely) between code chunks in the tangled
+  script; \code{extension} to specify the extension of the file name (or
+  remove it entirely) when splitting is selected.
 
   In a literate programming workflow, the additional options allow
   to include code chunks in a file such as:
@@ -47,8 +49,8 @@
   on tangling.  
 }
 \author{
-\packageAuthor{RweaveExtra}
+  \packageAuthor{RweaveExtra}
 
-Maintainer: \packageMaintainer{RweaveExtra}
+  Maintainer: \packageMaintainer{RweaveExtra}
 }
 \keyword{package}

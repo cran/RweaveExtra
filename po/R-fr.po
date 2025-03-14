@@ -1,0 +1,20 @@
+# French translations for package RweaveExtra
+# Traductions françaises du paquetage RweaveExtra
+# Copyright (C) 2024 Vincent Goulet
+# This file is distributed under the same license as the package RweaveExtra.
+# Vincent Goulet <vincent@vgoulet.act.ulaval.ca>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: RweaveExtra 1.1-1\n"
+"POT-Creation-Date: 2024-08-13 23:21\n"
+"PO-Revision-Date: 2024-08-13 23:32-0400\n"
+"Last-Translator: Vincent Goulet <vincent.goulet@act.ulaval.ca>\n"
+"Language-Team: Vincent Goulet <vincent.goulet@act.ulaval.ca>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "this function cannot be used from an interactive session"
+msgstr "cette fonction ne peut être utilisée dans une session interactive"

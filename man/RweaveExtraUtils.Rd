@@ -10,8 +10,8 @@
 \description{
   These functions are considered internal and hence not documented. The
   first mostly calls \code{makeRweaveLatexCodeRunner}, whereas the
-  second is a slightly modified version of \code{RtangleRuncode}, both
-  from package \pkg{utils}.
+  second is a modified version of \code{RtangleRuncode}, both from
+  package \pkg{utils}.
 }
 \usage{
 RweaveExtraLatexRuncode(object, chunk, options)

@@ -1,0 +1,31 @@
+%%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
+%%%
+%%% Copyright (C) 2021-2024 Vincent Goulet
+%%% License: GPL 2 or later
+
+\documentclass{article}
+  \usepackage{Sweave}
+  %\SweaveUTF8
+
+  \title{Extraction of the source name}
+  \author{Vincent Goulet}
+
+  \newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+This document illustrates usage of the function
+\code{SweaveGetSourceName}. The function may simply be used to print
+the name of the file being processed by \code{Sweave}.
+<<echo=TRUE>>=
+RweaveExtra::SweaveGetSourceName()
+@
+
+The anticipated main use of the function is to launch \code{Stangle}
+inside \code{Sweave} without having to hard code the name of the file
+in the \code{Stangle} call.
+<<echo=TRUE>>=
+Stangle(RweaveExtra::SweaveGetSourceName())
+@
+
+\end{document}

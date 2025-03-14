@@ -55,14 +55,14 @@ RtangleExtra <- function()
 RtangleExtraSetup <-
     function(file, syntax, output = NULL, annotate = TRUE, split = FALSE,
              quiet = FALSE, drop.evalFALSE = FALSE, ignore.on.tangle = FALSE,
-             ignore = FALSE, extension = NULL, ...)
+             ignore = FALSE, extension = TRUE, chunk.sep = "\n\n", ...)
 {
     res <- RtangleSetup(file, syntax, output = output, annotate = annotate,
                         split = split, quiet = quiet,
-                        drop.evalFALSE = drop.evalFALSE, ...)
-    res$options[["ignore.on.tangle"]] <- ignore.on.tangle
-    res$options[["ignore"]] <- ignore
-    res$options[["extension"]] <- extension
+                        drop.evalFALSE = drop.evalFALSE,
+                        ignore.on.tangle = ignore.on.tangle,
+                        ignore = ignore, extension = extension,
+                        chunk.sep = chunk.sep, ...)
 
     ## to be on the safe side: see if defaults pass the check
     res$options <- RweaveLatexOptions(res$options)
@@ -91,10 +91,10 @@ RtangleExtraRuncode <- function(object, chunk, options)
             warning("file stem ", sQuote(chunkprefix), " is not portable",
                     call. = FALSE, domain = NA)
         ## VG: use the engine as default extension
-        if (is.null(options$extension) || isTRUE(options$extension))
+        if (isTRUE(options$extension))
             options$extension <- options$engine
         ## VG: use an extension for the filename unless the option
-        ## 'extension=FALSE' is used in the chunk
+        ## 'extension' is FALSE
         ext <- if (!isFALSE(options$extension)) paste0(".", options$extension)
         outfile <- paste0(chunkprefix, ext)
         if (!object$quiet) cat(options$chunknr, ":", outfile,"\n")
@@ -116,6 +116,11 @@ RtangleExtraRuncode <- function(object, chunk, options)
     showOut <- options$eval || !object$drop.evalFALSE
     if(showOut)
     {
+        ## VG: first print the chunk separator if the current
+        ## connection object is not used for the first time (it has an
+        ## attribute) and option 'chunk.sep' is not FALSE
+        if (!is.null(attr(chunkout, "not.first")) && !isFALSE(options$chunk.sep))
+            cat(options$chunk.sep, file = chunkout)
         annotate <- object$annotate
         if (is.logical(annotate) && annotate) {
             cat("###################################################\n",
@@ -142,7 +147,19 @@ RtangleExtraRuncode <- function(object, chunk, options)
             chunk <- grep("^#line ", chunk, value = TRUE, invert = TRUE)
         if (!options$eval)
             chunk <- paste("##", chunk)
-        cat(chunk, "\n", file = chunkout, sep = "\n")
+        ## VG: do not write a newline after every chunk, as the
+        ## standard driver does
+        cat(chunk, file = chunkout, sep = "\n")
+        ## VG: add an attribute to the connection object (the value is
+        ## not important) to indicate text was written to it at least
+        ## once
+        if (options$split)
+        {
+            if (!is.null(options$label))
+                attr(object$chunkout[[outfile]], "not.first") <- TRUE
+        }
+        else
+            attr(object$output, "not.first") <- TRUE
     }
     if (is.null(options$label) && options$split)
         close(chunkout)

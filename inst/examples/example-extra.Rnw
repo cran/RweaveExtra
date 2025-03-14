@@ -17,12 +17,18 @@
 
 The purpose of this document is not to demonstrate usage of Sweave,
 but rather only of the additional options provided by the
-\textbf{RweaveExtra} package.
+\pkg{RweaveExtra} package.
 
 The following code chunk is processed normally by Sweave as well as by
 Stangle. Its content must be parsable by R.
 <<echo=TRUE>>=
 1:10
+@
+
+We remove the chunk separator before this next chunk. Therefore, it
+will appear immediately after the previous one in the tangled script.
+<<echo=TRUE, chunk.sep=FALSE>>=
+runif(10)
 @
 
 The next chunk contains a deliberate error --- say for didactic

@@ -60,10 +60,7 @@ RweaveExtraLatexSetup(file, syntax, output = NULL, quiet = FALSE,
 }
 \examples{
 testfile <- system.file("examples", "example-extra.Rnw", package = "RweaveExtra")
-\dontshow{
-oldwd <- setwd(tempdir()) # so we will write only to a temp directory
-}
-
+\dontshow{oldwd <- setwd(tempdir())}
 ## Check the contents of the file
 if(interactive()) file.show(testfile)
 
@@ -75,9 +72,7 @@ Stangle(testfile, driver = RtangleExtra())
 if(interactive()) file.show("example-extra.tex")
 if(interactive()) file.show("example-extra.R")
 
-\dontshow{
-if(!interactive()) unlink("example-extra*")
-setwd(oldwd)
-}
+\dontshow{if(!interactive()) unlink("example-extra*")
+setwd(oldwd)}
 }
 \keyword{utilities}

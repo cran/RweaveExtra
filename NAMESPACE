@@ -9,4 +9,4 @@ import(utils)
 ## Exports
 export("RtangleExtra", "RtangleExtraSetup", "RweaveExtraLatex",
        "RweaveExtraLatexRuncode", "RweaveExtraLatexSetup",
-       "RtangleExtraRuncode")
+       "RtangleExtraRuncode", "SweaveGetSourceName")
