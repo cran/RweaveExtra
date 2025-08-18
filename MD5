@@ -1,9 +1,9 @@
-2191b8729dc544ddc14ba28ee64d8707 *DESCRIPTION
+3cb774437a7d1ab2cf129db19bb1b54d *DESCRIPTION
 f463e8ecda652de6921d69809e289e19 *NAMESPACE
 50196a87d952ec4de763bafb0e8009f6 *R/RweaveExtra.R
-55e32ddd0caf8c740be29d324c3a0b24 *R/SweaveGetSourceName.R
-152aca48e02713f6b85df0e59dd5c914 *build/partial.rdb
-a6b3d05118ff45a06db42bce47b3bf11 *inst/NEWS.Rd
+a3dae1a0a535ec99c3650f5baadbbcf9 *R/SweaveGetSourceName.R
+3db2fad25491f82926c300b99d9bf4f6 *build/partial.rdb
+154b1dd5061416a152a9113b53bb8269 *inst/NEWS.Rd
 3ef6a5c44597d76d38d5d38a5f5f8c84 *inst/examples/auto/example-source.el
 cb67ef0c40d53c80714cc696618db254 *inst/examples/example-extra.Rnw
 f2d11bf6d0c9eb1287a440f4c2716cdd *inst/examples/example-source.Rnw

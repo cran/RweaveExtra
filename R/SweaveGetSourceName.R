@@ -18,8 +18,9 @@ SweaveGetSourceName <- function()
     ##   R -e "Sweave('foo.Rnw', ...)"
     ##
     ## The expression is one of the arguments and we can extract the
-    ## filename.
-    cmd <- grep(r"((Sweave|Stangle)\()", args, value = TRUE)
+    ## filename. We need to avoid catching 'utils:::.Sweave()'
+    ## that is present in a 'R CMD Sweave' call.
+    cmd <- grep(r"([^.](Sweave|Stangle)\()", args, value = TRUE)
     if (length(cmd))
     {
         m <- gregexec(r"((?:Sweave|Stangle)\([[:space:]]*(['"])([^'"]*)\1)",

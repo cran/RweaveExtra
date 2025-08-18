@@ -2,6 +2,16 @@
 \title{\pkg{RweaveExtra} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{RweaveExtra} VERSION 1.2-1}{
+  \subsection{BUG FIX}{
+    \itemize{
+      \item{\code{SweaveGetSourceName} could fail to identify the name
+	of the source file on Windows for jobs started with \code{R CMD
+	  Sweave}.}
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{RweaveExtra} VERSION 1.2-0}{
   \subsection{NEW FEATURES}{
     \itemize{

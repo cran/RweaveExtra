@@ -1,8 +1,8 @@
 Package: RweaveExtra
 Type: Package
 Title: Sweave Drivers with Extra Tricks Up their Sleeve
-Version: 1.2-0
-Date: 2025-03-14
+Version: 1.2-1
+Date: 2025-08-13
 Authors@R: c(person("Vincent", "Goulet", role = c("cre", "aut"),
  	            email = "vincent.goulet@act.ulaval.ca"),
 	     person(family = "R Core Team", role = "aut",
@@ -24,9 +24,9 @@ URL: https://gitlab.com/vigou3/rweaveextra
 BugReports: https://gitlab.com/vigou3/rweaveextra/-/issues
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2025-03-14 16:36:55 UTC; vincent
+Packaged: 2025-08-14 14:15:43 UTC; vincent
 Author: Vincent Goulet [cre, aut],
   R Core Team [aut] (Code from the original Sweave drivers)
 Maintainer: Vincent Goulet <vincent.goulet@act.ulaval.ca>
 Repository: CRAN
-Date/Publication: 2025-03-14 18:30:06 UTC
+Date/Publication: 2025-08-18 19:30:02 UTC
