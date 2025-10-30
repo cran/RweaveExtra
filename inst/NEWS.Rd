@@ -2,6 +2,24 @@
 \title{\pkg{RweaveExtra} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{RweaveExtra} VERSION 1.3-0}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item{Aliases \code{weave} and \code{tangle} for
+	\code{!ignore.on.weave} and \code{!ignore.on.tangle},
+	respectively.}
+    }
+  }
+  \subsection{USER VISIBLE CHANGES}{
+    \itemize{
+      \item{Functions \code{RweaveExtraLatexRuncode} and
+	\code{RtangleExtraRuncode} are now documented with their driver,
+	like the corresponding functions in the package \pkg{utils}.
+	Therefore, \code{?RweaveExtraUtils} no longer exists.}
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{RweaveExtra} VERSION 1.2-1}{
   \subsection{BUG FIX}{
     \itemize{
@@ -26,7 +44,7 @@
   \subsection{USER VISIBLE CHANGES}{
     \itemize{
       \item{The default value of option \code{extension} is now
-	\code{TRUE}. This is now the value that will use the name of the
+	\code{TRUE}. This is the value that will use the name of the
 	engine as extension. The value \code{NULL} is now equivalent to
 	\code{FALSE}.}
     }

@@ -34,7 +34,7 @@
   to include code chunks in a file such as:
   \itemize{
     \item{code that is not parsable by R (say, because of errors
-      inserted for educational purposes);}
+      inserted for didactic purposes);}
     \item{code in another programming language entirely (say, a shell
       script to start an analysis);}
     \item{code for a Shiny app.}

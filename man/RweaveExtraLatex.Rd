@@ -6,7 +6,8 @@
 \name{RweaveExtraLatex}
 \alias{RweaveExtraLatex}
 \alias{RweaveExtraLatexSetup}
-\title{R/LaTeX Driver for Sweave with Additional Options}
+\alias{RweaveExtraLatexRuncode}
+\title{R/LaTeX Driver for Sweave with Extra Tricks}
 \description{
   A driver for \code{\link[utils]{Sweave}} extending the standard driver
   \code{\link[utils]{RweaveLatex}} with additional code chunk options.
@@ -16,28 +17,42 @@ RweaveExtraLatex()
 
 RweaveExtraLatexSetup(file, syntax, output = NULL, quiet = FALSE,
                       debug = FALSE, stylepath, ignore.on.weave = FALSE,
-                      ignore = FALSE, ...)
+                      ignore = FALSE, weave = !ignore.on.weave, ...)
+
+RweaveExtraLatexRuncode(object, chunk, options)
 }
 \arguments{
-  \item{file}{Name of Sweave source file. See the description of the
+  \item{file}{name of Sweave source file; see the description of the
     corresponding argument of \code{\link[utils]{Sweave}}.}
-  \item{syntax}{An object of class \code{SweaveSyntax}. See
+  \item{syntax}{an object of class \code{SweaveSyntax}; see
     \code{\link[utils]{RweaveLatex}}.}
-  \item{output}{Name of output file. See
+  \item{output}{name of output file; see
+  \code{\link[utils]{RweaveLatex}}.}
+  \item{quiet}{if \code{TRUE} all progress messages are suppressed; see
     \code{\link[utils]{RweaveLatex}}.}
-  \item{quiet}{If \code{TRUE} all progress messages are suppressed. See
-    \code{\link[utils]{RweaveLatex}}.}
-  \item{debug}{If \code{TRUE}, input and output of all code
-    chunks is copied to the console. See
-    \code{\link[utils]{RweaveLatex}}.}
-  \item{stylepath}{See \code{\link[utils]{RweaveLatex}}.}
-  \item{ignore.on.weave}{If \code{TRUE}, the code chunk is ignored
-    entirely, i.e., neither parsed nor evaluated.}
-  \item{ignore}{An alternative way to set both \code{ignore.on.weave}
+  \item{debug}{if \code{TRUE}, input and output of all code chunks is
+    copied to the console; see \code{\link[utils]{RweaveLatex}}.}
+  \item{stylepath}{see \code{\link[utils]{RweaveLatex}}.}
+  \item{ignore.on.weave}{if \code{TRUE}, the code chunk is ignored entirely,
+    i.e., neither parsed nor evaluated.}
+  \item{ignore}{an alternative way to set both \code{ignore.on.weave}
     and \code{ignore.on.tangle} of \code{\link{RtangleExtra}}.}
-  \item{\dots}{See \code{\link[utils]{RweaveLatex}}.}
+  \item{weave}{an \emph{alias} for \code{!ignore.on.weave}.}
+  \item{\dots}{see \code{\link[utils]{RweaveLatex}}.}
+  \item{object}{an object created by the \code{setup} function of the
+    driver; see \code{\link[utils]{RweaveLatex}}.}
+  \item{chunk}{text of a code chunk.}
+  \item{options}{named list of character strings.}
 }
 \details{
+  See \code{\link[utils]{RweaveLatex}} for details on Sweave drivers.
+
+  \code{RweaveExtra} is the Sweave driver. \code{RweaveExtraSetup} and
+  \code{RweaveExtraRuncode} are functions for the \code{setup} and
+  \code{runcode} elements of the driver, respectively. The driver uses
+  the functions of the standard \code{\link[utils]{RweaveLatex}} driver
+  for the other elements.
+
   Chunks ignored on weaving are not parsed and are not evaluated, but
   they are written out on tangling as normal code chunks (unless
   \code{ignore=TRUE}).

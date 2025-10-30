@@ -23,12 +23,13 @@ RweaveExtraLatex <- function()
 
 RweaveExtraLatexSetup <-
     function(file, syntax, output = NULL, quiet = FALSE, debug = FALSE,
-             stylepath, ignore.on.weave = FALSE, ignore = FALSE, ...)
+             stylepath, ignore.on.weave = FALSE, ignore = FALSE,
+             weave = !ignore.on.weave, ...)
 {
     res <- RweaveLatexSetup(file, syntax, output = output, quiet = quiet,
-                            debug = debug, stylepath = stylepath, ...)
-    res$options[["ignore.on.weave"]] <- ignore.on.weave
-    res$options[["ignore"]] <- ignore
+                            debug = debug, stylepath = stylepath,
+                            ignore.on.weave = ignore.on.weave,
+                            ignore = ignore, weave = weave, ...)
 
     ## to be on the safe side: see if defaults pass the check
     res$options <- RweaveLatexOptions(res$options)
@@ -37,7 +38,9 @@ RweaveExtraLatexSetup <-
 
 RweaveExtraLatexRuncode <- function(object, chunk, options)
 {
-    if (options$ignore || options$ignore.on.weave)
+    ## Omit the chunk and just return the object? Conditions listed in
+    ## the order they seem likely to be used.
+    if (!options$weave || options$ignore.on.weave || options$ignore)
         return(object)
 
     makeRweaveLatexCodeRunner()(object, chunk, options)
@@ -55,14 +58,15 @@ RtangleExtra <- function()
 RtangleExtraSetup <-
     function(file, syntax, output = NULL, annotate = TRUE, split = FALSE,
              quiet = FALSE, drop.evalFALSE = FALSE, ignore.on.tangle = FALSE,
-             ignore = FALSE, extension = TRUE, chunk.sep = "\n\n", ...)
+             ignore = FALSE, tangle = !ignore.on.tangle, extension = TRUE,
+             chunk.sep = "\n\n", ...)
 {
     res <- RtangleSetup(file, syntax, output = output, annotate = annotate,
                         split = split, quiet = quiet,
                         drop.evalFALSE = drop.evalFALSE,
                         ignore.on.tangle = ignore.on.tangle,
-                        ignore = ignore, extension = extension,
-                        chunk.sep = chunk.sep, ...)
+                        ignore = ignore, tangle = tangle,
+                        extension = extension, chunk.sep = chunk.sep, ...)
 
     ## to be on the safe side: see if defaults pass the check
     res$options <- RweaveLatexOptions(res$options)
@@ -74,12 +78,12 @@ RtangleExtraSetup <-
 
 ## Modified version of utils::RtangleRuncode. My changes are indicated
 ## by 'VG' in comments. The other comments are from SweaveDrivers.R in
-## the sources of the package utils.
+## the sources of package utils.
 RtangleExtraRuncode <- function(object, chunk, options)
 {
-    ## VG: additional conditions to skip processing and return the
-    ## object.
-    if (options$ignore || options$ignore.on.tangle ||
+    ## VG: omit the chunk and return the object? Conditions listed in
+    ## the order they seem likely to be used.
+    if (!options$tangle || options$ignore.on.tangle || options$ignore ||
         !(options$engine %in% c("R", "S")))
         return(object)
 

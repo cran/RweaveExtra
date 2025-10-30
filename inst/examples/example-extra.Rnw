@@ -39,19 +39,19 @@ tangled script.
 2 + does.not.exist
 @
 
-With option \code{ignore.on.weave=TRUE} provided by the
-\code{RweaveExtraLatex} driver, the chunk is not parsed nor
-evaluated by Sweave. Therefore, we can even include code not parsable
-by R in the chunk. However, the code is processed as usual by Stangle,
-that is, without being commented out.
-<<echo=TRUE, ignore.on.weave=TRUE>>=
+With option \code{weave=FALSE} (or \code{ignore.on.weave=TRUE})
+provided by the \code{RweaveExtraLatex} driver, the chunk is neither
+parsed nor evaluated by Sweave. Therefore, we can even include code
+not parsable by R in the chunk. However, the code is processed as
+usual by Stangle, that is, without being commented out.
+<<echo=TRUE, weave=FALSE>>=
 2 a
 @
 
 Paired with option \code{extension}, this is also useful to keep, in a
 single source file, R code as well as code in another programming
 language. The former must be evaluated, but not the latter.
-<<hello, extension=sh, prefix=FALSE, ignore.on.weave=TRUE>>=
+<<hello, extension=sh, prefix=FALSE, weave=FALSE>>=
 #!/bin/sh
 
 echo "Hello, World!"
@@ -63,7 +63,7 @@ Finally, we have a chunk that is processed normally by Sweave, but
 that is ignored by Stangle. This is convenient with \code{split =
   TRUE} to avoid littering the output directory with unimportant
 scripts.
-<<echo=TRUE, ignore.on.tangle=TRUE>>=
+<<echo=TRUE, tangle=FALSE>>=
 rnorm(10)
 @
 

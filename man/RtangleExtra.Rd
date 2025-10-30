@@ -6,7 +6,8 @@
 \name{RtangleExtra}
 \alias{RtangleExtra}
 \alias{RtangleExtraSetup}
-\title{R Driver for Stangle with Additional Options}
+\alias{RtangleExtraRuncode}
+\title{R Driver for Stangle with Extra Tricks}
 \description{
   A driver for \code{\link[utils]{Sweave}} extending the standard driver
   \code{\link[utils]{Rtangle}} with additional code chunk options.
@@ -17,38 +18,57 @@ RtangleExtra()
 RtangleExtraSetup(file, syntax, output = NULL, annotate = TRUE,
                   split = FALSE, quiet = FALSE, drop.evalFALSE = FALSE,
                   ignore.on.tangle = FALSE, ignore = FALSE,
-                  extension = TRUE, chunk.sep = "\n\n", ...)
+                  tangle = !ignore.on.tangle, extension = TRUE,
+                  chunk.sep = "\n\n", ...)
+
+RtangleExtraRuncode(object, chunk, options)
 }
 \arguments{
-  \item{file}{Name of Sweave source file. See the description of the
-    corresponding argument of \code{\link[utils]{Sweave}}.}
-  \item{syntax}{An object of class \code{SweaveSyntax}. See
+  \item{file}{name of Sweave source file; see the description of the
+    corresponding argument of \code{\link[utils]{Stangle}}.}
+  \item{syntax}{an object of class \code{SweaveSyntax}; see
     \code{\link[utils]{Rtangle}}.}
-  \item{output}{Name of output file used unless \code{split = TRUE}.
-    See \code{\link[utils]{Rtangle}}.}
-  \item{annotate}{A logical or \code{\link{function}}. See
+  \item{output}{name of output file used unless \code{split = TRUE}; see
     \code{\link[utils]{Rtangle}}.}
-  \item{split}{Split output into a file for each code chunk?}
-  \item{quiet}{Logical to suppress all progress messages.}
-  \item{drop.evalFALSE}{See \code{\link[utils]{Rtangle}}.}
-  \item{ignore.on.tangle}{If \code{TRUE}, the code chunk is ignored
-    entirely.}
-  \item{ignore}{An alternative way to set both \code{ignore.on.weave}
+  \item{annotate}{a logical or \code{\link{function}}; see
+    \code{\link[utils]{Rtangle}}.}
+  \item{split}{split output into a file for each code chunk?}
+  \item{quiet}{logical to suppress all progress messages.}
+  \item{drop.evalFALSE}{logical; see \code{\link[utils]{Rtangle}}.}
+  \item{ignore.on.tangle}{if \code{TRUE}, the code chunk is ignored
+    entirely.} 
+  \item{ignore}{an alternative way to set both \code{ignore.on.weave}
     of \code{\link{RweaveExtraLatex}} and \code{ignore.on.tangle}.}
-  \item{extension}{Extension to use for the file name, without the
+  \item{tangle}{an \emph{alias} for \code{!ignore.on.tangle}.}
+  \item{extension}{extension to use for the file name, without the
     leading dot, when splitting is selected. If \code{TRUE}, the default
     extension of \code{\link[utils]{Rtangle}} is used (the
     \sQuote{engine}, usually \file{R}). If \code{FALSE}, no extension
     is added to the file name.}
-  \item{chunk.sep}{Text to use as separator between code chunks. The
+  \item{chunk.sep}{text to use as separator between code chunks. The
     default value reproduces the output of the standard
     \code{\link[utils]{Rtangle}} driver. If \code{FALSE}, no separator
     is added between chunks.}
-  \item{\dots}{See \code{\link[utils]{RweaveLatex}}.}
+  \item{\dots}{see \code{\link[utils]{RweaveLatex}}.}
+  \item{object}{an object created by the \code{setup} function of the
+    driver; see \code{\link[utils]{RweaveLatex}}.}
+  \item{chunk}{text of a code chunk.}
+  \item{options}{named list of character strings.}
 }
 \details{
+  See \code{\link[utils]{RweaveLatex}} for details on Sweave drivers.
+
+  \code{RtangleExtra} is the Stangle driver. \code{RtangleExtraSetup}
+  and \code{RtangleExtraRuncode} are functions for the \code{setup} and
+  \code{runcode} elements of the driver, respectively. The driver uses
+  the functions of the standard \code{\link[utils]{Rtangle}} driver for
+  the other elements.
+
+  All \code{RtangleSetup} arguments may be used as arguments in a
+  \code{\link{Stangle}} call using the \code{RtangleExtra} driver.
+
   Chunks ignored on tangling are not written out to script files, but
-  they are processed normally on weaving (unless \code{ignore = TRUE}).
+  remain processed normally on weaving (unless \code{ignore = TRUE}).
   Therefore, chunks may still use \code{eval = TRUE} for weaving
   purposes, yet not be tangled.
   
