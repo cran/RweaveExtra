@@ -1,12 +1,14 @@
 ### RweaveExtra: Sweave drivers with extra tricks up their sleeve
 ###
-### Copyright (C) 2021-2024 Vincent Goulet
+### Copyright (C) 2021-2026 Vincent Goulet
 ### License: GPL 2 or later
 
 ## Imports
 import(utils)
 
 ## Exports
-export("RtangleExtra", "RtangleExtraSetup", "RweaveExtraLatex",
-       "RweaveExtraLatexRuncode", "RweaveExtraLatexSetup",
-       "RtangleExtraRuncode", "SweaveGetSourceName")
+export("RweaveExtraLatex", "RtangleExtra")
+if (getRversion() < "4.6.0")
+    export("RweaveExtraLatexSetup", "RweaveExtraLatexRuncode",
+           "RtangleExtraSetup", "RtangleExtraRuncode",
+           "SweaveGetSourceName")

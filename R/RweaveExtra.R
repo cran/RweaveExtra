@@ -1,6 +1,6 @@
 ### RweaveExtra: Sweave drivers with extra tricks up their sleeve
 ###
-### Copyright (C) 2021-2024 Vincent Goulet, 1995-2016 The R Core Team
+### Copyright (C) 2021-2026 Vincent Goulet, 1995-2016 The R Core Team
 ### License: GPL 2 or later
 ###
 ### Definition of the drivers.
@@ -12,14 +12,16 @@
 ### One exception is 'RtangleExtraRuncode' that is a modified version
 ### of 'RtangleRuncode'.
 
-RweaveExtraLatex <- function()
-{
-    list(setup = RweaveExtraLatexSetup,
-         runcode = RweaveExtraLatexRuncode,
-         writedoc = RweaveLatexWritedoc,
-         finish = RweaveLatexFinish,
-         checkopts = RweaveLatexOptions)
-}
+## Use the standard driver for R >= 4.6.0.
+RweaveExtraLatex <-
+    if (getRversion() >= "4.6.0") {
+        RweaveLatex
+    } else
+        function() list(setup = RweaveExtraLatexSetup,
+                        runcode = RweaveExtraLatexRuncode,
+                        writedoc = RweaveLatexWritedoc,
+                        finish = RweaveLatexFinish,
+                        checkopts = RweaveLatexOptions)
 
 RweaveExtraLatexSetup <-
     function(file, syntax, output = NULL, quiet = FALSE, debug = FALSE,
@@ -46,14 +48,16 @@ RweaveExtraLatexRuncode <- function(object, chunk, options)
     makeRweaveLatexCodeRunner()(object, chunk, options)
 }
 
-RtangleExtra <- function()
-{
-    list(setup = RtangleExtraSetup,
-         runcode = RtangleExtraRuncode,
-         writedoc = RtangleWritedoc,
-         finish = RtangleFinish,
-         checkopts = RweaveLatexOptions)
-}
+## Use the standard driver for R >= 4.6.0.
+RtangleExtra <-
+    if (getRversion() >= "4.6.0") {
+        Rtangle
+    } else
+        function() list(setup = RtangleExtraSetup,
+                        runcode = RtangleExtraRuncode,
+                        writedoc = RtangleWritedoc,
+                        finish = RtangleFinish,
+                        checkopts = RweaveLatexOptions)
 
 RtangleExtraSetup <-
     function(file, syntax, output = NULL, annotate = TRUE, split = FALSE,

@@ -1,6 +1,6 @@
 %%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
 %%%
-%%% Copyright (C) 2021-2024 Vincent Goulet
+%%% Copyright (C) 2021-2026 Vincent Goulet
 %%% License: GPL 2 or later
 
 \name{RweaveExtraLatex}
@@ -47,11 +47,13 @@ RweaveExtraLatexRuncode(object, chunk, options)
 \details{
   See \code{\link[utils]{RweaveLatex}} for details on Sweave drivers.
 
-  \code{RweaveExtra} is the Sweave driver. \code{RweaveExtraSetup} and
-  \code{RweaveExtraRuncode} are functions for the \code{setup} and
-  \code{runcode} elements of the driver, respectively. The driver uses
-  the functions of the standard \code{\link[utils]{RweaveLatex}} driver
-  for the other elements.
+  \code{RweaveExtra} is the Sweave driver. On \R >= 4.6.0 it is
+  identical to \code{\link[utils]{RweaveLatex}} since the latter now
+  supports the same functionalities. On earlier versions of \R,
+  \code{RweaveExtraSetup} and \code{RweaveExtraRuncode} are functions
+  for the \code{setup} and \code{runcode} elements of the driver,
+  respectively, and the driver uses the functions of the standard
+  \code{\link[utils]{RweaveLatex}} driver for the other elements.
 
   Chunks ignored on weaving are not parsed and are not evaluated, but
   they are written out on tangling as normal code chunks (unless

@@ -1,0 +1,13 @@
+\documentclass[a4paper]{article}
+
+\title{Sweave and Stangle Examples}
+\author{Friedrich Leisch \and Vincent Goulet}
+
+\begin{document}
+
+<<>>=
+args <- commandArgs(TRUE)
+args
+@
+
+\end{document}

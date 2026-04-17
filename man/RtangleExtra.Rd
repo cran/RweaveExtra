@@ -1,6 +1,6 @@
 %%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
 %%%
-%%% Copyright (C) 2021-2024 Vincent Goulet
+%%% Copyright (C) 2021-2026 Vincent Goulet
 %%% License: GPL 2 or later
 
 \name{RtangleExtra}
@@ -58,11 +58,13 @@ RtangleExtraRuncode(object, chunk, options)
 \details{
   See \code{\link[utils]{RweaveLatex}} for details on Sweave drivers.
 
-  \code{RtangleExtra} is the Stangle driver. \code{RtangleExtraSetup}
-  and \code{RtangleExtraRuncode} are functions for the \code{setup} and
-  \code{runcode} elements of the driver, respectively. The driver uses
-  the functions of the standard \code{\link[utils]{Rtangle}} driver for
-  the other elements.
+  \code{RtangleExtra} is the Stangle driver. On \R >= 4.6.0 it is
+  identical to \code{\link[utils]{Rtangle}} since the latter now
+  supports the same functionalities. On earlier versions of \R,
+  \code{RtangleExtraSetup} and \code{RtangleExtraRuncode} are the
+  functions used for the \code{setup} and \code{runcode} elements of the
+  driver, respectively, and the driver uses the functions of the
+  standard \code{\link[utils]{Rtangle}} driver for the other elements.
 
   All \code{RtangleSetup} arguments may be used as arguments in a
   \code{\link{Stangle}} call using the \code{RtangleExtra} driver.
@@ -90,7 +92,8 @@ RtangleExtraRuncode(object, chunk, options)
   package.
 }
 \author{
-  Vincent Goulet, based on work by Friedrich Leisch and R-core.
+  \packageAuthor{RweaveExtra}, based on work by Friedrich Leisch and
+  R-core.
 }
 \seealso{
   \code{\link{RweaveExtraLatex}}, \code{\link[utils]{Rtangle}},

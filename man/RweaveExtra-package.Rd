@@ -1,6 +1,6 @@
 %%% RweaveExtra: Sweave drivers with extra tricks up their sleeve
 %%%
-%%% Copyright (C) 2021-2024 Vincent Goulet
+%%% Copyright (C) 2021-2026 Vincent Goulet
 %%% License: GPL 2 or later
 
 \name{RweaveExtra-package}
@@ -14,6 +14,9 @@
   \packageDescription{RweaveExtra}
 }
 \details{
+  Note: the package is deprecated. It uses the standard drivers on \R >=
+  4.6.0 since they incorporate all the functionalities below.
+  
   The \code{\link{RweaveExtraLatex}} and \code{\link{RtangleExtra}}
   drivers extend the standard \code{\link[utils]{Sweave}} drivers
   \code{\link[utils]{RweaveLatex}} and

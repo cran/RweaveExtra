@@ -2,6 +2,18 @@
 \title{\pkg{RweaveExtra} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{RweaveExtra} VERSION 1.3-1}{
+  \subsection{USER VISIBLE CHANGES}{
+    \itemize{
+      \item{Mark the package as deprecated since \R 4.6.0 incorporates
+	all its functionalities. On \R >= 4.6.0, the package uses the
+	standard drivers and does not export the utility function
+	\code{SweaveGetSourceName}. Behaviour for earlier versions
+	remains unchanged.}
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{RweaveExtra} VERSION 1.3-0}{
   \subsection{NEW FEATURES}{
     \itemize{
